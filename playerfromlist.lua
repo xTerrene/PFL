@@ -12,6 +12,8 @@ function pfl:findp(instr,dtype)
 	if instr == nil then
 		instr = "N/A"
 	end	
+
+	local t = {}
 	
 	if dtype == 2 then
 		if instr == "N/A" then return instr end
