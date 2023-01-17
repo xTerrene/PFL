@@ -34,7 +34,7 @@ function pfl:findp(instr,dtype)
 			if table.find(t,tostring(v.UserId)) then
 				local uid = v.UserId
 				local name = players:GetNameFromUserIdAsync(v.UserId)
-				local plr = {["UserId"] = uid, ["Name"] = plr}
+				local plr = {["UserId"] = uid, ["Name"] = name}
 				table.insert(pt,plr)
 			end
 		end
@@ -65,7 +65,7 @@ function pfl:findp(instr,dtype)
 			if table.find(t,tostring(v.UserId)) then
 				local uid = v.UserId
 				local name = players:GetNameFromUserIdAsync(v.UserId)
-				local plr = {["UserId"] = uid, ["Name"] = plr}
+				local plr = {["UserId"] = uid, ["Name"] = name}
 				return plr
 			end
 		end
