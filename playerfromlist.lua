@@ -4,6 +4,8 @@ local pfl = {}
 -- version v1.2
 
 function pfl:findp(instr,dtype)
+
+	local players = game.Players
 	
 	if not ((dtype == 1) or (dtype == 2) or (dtype == 3)) then
 		dtype = 3
@@ -24,13 +26,13 @@ function pfl:findp(instr,dtype)
 
 		local pt = {}
 
-		for i,v in pairs(game.Players:GetPlayers()) do
+		for i,v in pairs(players:GetPlayers()) do
 			if table.find(t,v.Name) then
 				table.insert(pt,v.Name)
 			end
 			
 			if table.find(t,tostring(v.UserId)) then
-				table.insert(pt,v.UserId)
+				table.insert(pt,players:GetNameFromUserIdAsync(v.UserId))
 			end
 		end
 
@@ -51,14 +53,14 @@ function pfl:findp(instr,dtype)
 			table.insert(t, str)
 		end
 	
-		for i,v in pairs(game.Players:GetPlayers()) do
+		for i,v in pairs(players:GetPlayers()) do
 			if table.find(t,v.Name) then
 				plr = v.Name
 				return plr
 			end
 
 			if table.find(t,tostring(v.UserId)) then
-				plr = v.UserId
+				plr = players:GetNameFromUserIdAsync(v.UserId)
 				return plr
 			end
 		end
@@ -74,13 +76,13 @@ function pfl:findp(instr,dtype)
 
 		local pt = {}
 
-		for i,v in pairs(game.Players:GetPlayers()) do
+		for i,v in pairs(players:GetPlayers()) do
 			if table.find(t,v.Name) then
 				table.insert(pt,v.Name)
 			end
 			
 			if table.find(t,tostring(v.UserId)) then
-				table.insert(pt,v.UserId)
+				table.insert(pt,players:GetNameFromUserIdAsync(v.UserId))
 			end
 		end
 
