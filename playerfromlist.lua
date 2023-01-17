@@ -1,6 +1,7 @@
 local pfl = {}
 
 -- created by 0xEARTH
+-- version 1.1
 
 function pfl:findp(instr,dtype)
 	
@@ -14,10 +15,24 @@ function pfl:findp(instr,dtype)
 	
 	if dtype == 2 then
 		if instr == "N/A" then return instr end
+
 		for str in string.gmatch(instr, "([^%s+]+)") do
 			table.insert(t, str)
 		end
-		return t
+
+		local pt = {}
+
+		for i,v in pairs(game.Players:GetPlayers()) do
+			if table.find(t,v.Name) then
+				table.insert(pt,v.Name)
+			end
+		end
+
+		if #pt == 0 then
+			return "N/A"
+		else
+			return pt
+		end
 	end
 		
 	if dtype == 3 then
@@ -41,10 +56,20 @@ function pfl:findp(instr,dtype)
 	
 	if dtype == 1 then
 		if instr == "N/A" then return instr end
-		for str in string.gmatch(instr, "([^%s+]+)") do
-			table.insert(t, str)
+
+		local pt = {}
+
+		for i,v in pairs(game.Players:GetPlayers()) do
+			if table.find(t,v.Name) then
+				table.insert(pt,v.Name)
+			end
 		end
-		return unpack(t)
+
+		if #pt == 0 then
+			return "N/A"
+		else
+			return unpack(pt)
+		end
 	end
 end
 
