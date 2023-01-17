@@ -59,6 +59,10 @@ function pfl:findp(instr,dtype)
 	if dtype == 1 then
 		if instr == "N/A" then return instr end
 
+		for str in string.gmatch(instr, "([^%s+]+)") do
+			table.insert(t, str)
+		end
+
 		local pt = {}
 
 		for i,v in pairs(game.Players:GetPlayers()) do
