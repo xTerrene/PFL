@@ -28,6 +28,8 @@ Your first argument will be the list of players, which will be separated by newl
     TestDummy123
     LuaIsGOAT
 
+It can also be a similarly formatted list of User IDs, in the event you wish to use them instead.
+
 Read and/or get this file however you have the ability to. For executors, a simple Pastebin using a second loadstring can suffice, for example:
 
     local players = loadstring(game:HttpGet(https://raw.githubusercontent.com/EarthToAccess/PFL/main/examplelist.lua))()
@@ -59,6 +61,20 @@ What PFL returns is entirely dependant on the argument you supplied (see above).
 
 Otherwise, PFL can be used in variables itself or as arguments to other functions without hassle or workaround.
 
+If you gave PFL a list of User IDs and chose to return as a single player or as a table, each entry will be its own table with the User ID and name of a match.
+
+For example, if you used single player and it found `TestDummy123` with the ID `123456789` in your server, it would return its own table that you could then grab *either* the User ID or name from;
+
+    local match = var:findp(readfile("userid.txt"))
+
+    if match.UserId == 123456789 or match.Name == "TestDummy123" then
+        print("Found!")
+    end
+
+    -- >> Found!
+
+This can be used if your match is dependant on names versus IDs, but you're still given a list of IDs to match.
+
 ## Disclaimer
 
 Due to the nature of how scripting itself works, neither Earth nor the PFL team will accept any responsibility should you find yourself banned from any Roblox game or Roblox itself. ***User discretion is advised.***
@@ -67,11 +83,15 @@ Due to the nature of how scripting itself works, neither Earth nor the PFL team 
 
 <sup>Entries in this changelog are denoted by using asterisks (*) for changes, greater-thans (>) for notes, pluses (+) for additions, and dashes (-) for removals.</sup>
 
-### Latest - v1.1
+### Latest - v1.2
 
-- [\*] Fixed an issue with outputting a list of strings in which it never got your input list to start.  
+- [\+] Added the ability to find players off a list of User IDs versus only names.
 
 ### Previous
+
+#### v1.1
+
+- [\*] Fixed an issue with outputting a list of strings in which it never got your input list to start.  
 
 #### v1.0
 
