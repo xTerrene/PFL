@@ -1,7 +1,7 @@
 local pfl = {}
 
 -- created by 0xEARTH
--- version 1.1
+-- version v1.2
 
 function pfl:findp(instr,dtype)
 	
@@ -28,6 +28,10 @@ function pfl:findp(instr,dtype)
 			if table.find(t,v.Name) then
 				table.insert(pt,v.Name)
 			end
+			
+			if table.find(t,tostring(v.UserId)) then
+				table.insert(pt,v.UserId)
+			end
 		end
 
 		if #pt == 0 then
@@ -52,6 +56,11 @@ function pfl:findp(instr,dtype)
 				plr = v.Name
 				return plr
 			end
+
+			if table.find(t,tostring(v.UserId)) then
+				plr = v.UserId
+				return plr
+			end
 		end
 		return "N/A"
 	end
@@ -68,6 +77,10 @@ function pfl:findp(instr,dtype)
 		for i,v in pairs(game.Players:GetPlayers()) do
 			if table.find(t,v.Name) then
 				table.insert(pt,v.Name)
+			end
+			
+			if table.find(t,tostring(v.UserId)) then
+				table.insert(pt,v.UserId)
 			end
 		end
 
