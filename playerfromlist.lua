@@ -57,7 +57,7 @@ function pfl:findp(list,dtype)
 		end
 
 		if #pt == 0 then
-			return nil
+			return {["UserId"] = nil, ["Name"] = nil}
 		else
 			return pt
 		end
@@ -77,7 +77,7 @@ function pfl:findp(list,dtype)
 				return plr
 			end
 		end
-		return nil
+		return {["UserId"] = nil, ["Name"] = nil}
 	end
 	
 end
