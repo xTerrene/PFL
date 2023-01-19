@@ -44,7 +44,7 @@ It's best to use your executor's `readfile` equivalent, however, as it's more re
 
 Your second argument is the output you want; what do you want PFL to return?
 
-1) **String**  
+1) **Strings**  
     Now, why you'd want to get a list of strings only to get returned a list of strings is beyond us, but we've decided to make it possible anyway. It could potentially be used to output in one easy string all the found players, maybe to show friends in a server.
 2) **Table**  
     Returns a table of all the found players. Very useful for iterating through found players, if you expect to have multiple at once.
@@ -59,11 +59,11 @@ What PFL returns is entirely dependant on the argument you supplied (see above).
 
     print(var:findp(list))
 
-Otherwise, PFL can be used in variables itself or as arguments to other functions without hassle or workaround.
+On its own, PFL can be used in variables itself or as arguments to other functions without hassle or workaround.
 
-If you gave PFL a list of User IDs and chose to return as a single player or as a table, each entry will be its own table with the User ID and name of a match.
+PFL will return with a table containing valid matches, each match itself being a table containing a `Name` and `UserId` value, with exception to Strings, which will instead return an unpacked table containing all the names and User IDs that it found. 
 
-For example, if you used single player and it found `TestDummy123` with the ID `123456789` in your server, it would return its own table that you could then grab *either* the User ID or name from;
+For example, if you returned Single Player and it found `TestDummy123` with the ID `123456789` in your server, it would return its own table that you could then grab *either* the User ID or name from:
 
     local match = var:findp(readfile("userid.txt"))
 
@@ -73,7 +73,25 @@ For example, if you used single player and it found `TestDummy123` with the ID `
 
     -- >> Found!
 
-This can be used if your match is dependant on names versus IDs, but you're still given a list of IDs to match.
+This can be useful if you're testing for User IDs or names, but don't exactly know which response you might need (e.g. for teleports, simple listings, etc.).
+
+If PFL can't find the person you're looking for, all entries will return `nil`. For returning Strings, it will just return `nil` itself; for Table or Single Player, each entry will return `.Name` and `.UserId` as `nil`. For example, if you tried looking for `TestDummy123` and it didn't find anything:
+
+<sup>- Returning Single Player or Table</sup>
+
+    if match.UserId == nil then
+        print("No match!")
+    end
+
+    -- >> No match!
+
+<sup>- Returning Strings</sup>
+
+    if match == nil then
+        print("No match!")
+    end
+
+    -- >> No match!
 
 ## Disclaimer
 
@@ -81,18 +99,36 @@ Due to the nature of how scripting itself works, neither Earth nor the PFL team 
 
 ## Changelog
 
-<sup>Entries in this changelog are denoted by using asterisks (*) for changes, greater-thans (>) for notes, pluses (+) for additions, and dashes (-) for removals.</sup>
+<sup>Entries in this changelog are denoted by using asterisks (*) for changes, pluses (+) for additions, and dashes (-) for removals.</sup>
 
-### Latest - v1.2
+### Latest - v1.3
 
-- [\+] Added the ability to find players off a list of User IDs versus only names.
+- [`*`] Not inputting any list to read (i.e. calling `var:findp()` as-is) will now return `nil` vs `"N/A"`.  
+- [`*`] Returning a table or single player while not having any valid players in your server and list will now return `nil` for `.UserId` and `.Name` respectively, rather than `"N/A"`.
+    - This was done after realizing the oversight that trying to index `.Name` or `.UserId` when a player wasn't there would error out. Now, it should instead return a proper `nil` which is still usable.
+- [`*`] Table and Single Player return types will now return a table with `.Name` and `.UserId`, regardless of the input list.
+    - For Table, you will need to iterate through each entry and find `.Name` or `.UserId` from there;
+        ```lua
+        for i,v in pairs var:findp(readfile("list.txt"),2) do
+            if v.Name == "test" or v.UserId == "123456" then
+                --
+            end
+        end
+        ```
+    - If no players are found, both Table and Single Player return types will have a single table as expected, with both values being `nil`.
+- [`*`] Strings return type will return `nil` if no players are found.
+- [`*`] Minor code optimizations to make things run faster, removing some redundant or ambigious code.
 
 ### Previous
 
+#### v1.2
+
+- [`+`] Added the ability to find players off a list of User IDs versus only names.
+
 #### v1.1
 
-- [\*] Fixed an issue with outputting a list of strings in which it never got your input list to start.  
+- [`*`] Fixed an issue with outputting a list of strings in which it never got your input list to start.  
 
 #### v1.0
 
-- [\+] Welcome to PFL!
+- [`+`] Welcome to PFL!
