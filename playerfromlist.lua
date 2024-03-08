@@ -1,6 +1,6 @@
 local pfl = {}
 
--- created by 0xEARTH
+-- created by xTerrene
 -- version v1.3
 
 function pfl:findp(list,dtype)
